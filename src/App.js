@@ -5,6 +5,7 @@ import Loading from "./loading";
 
 const Main = lazy(() => import("./pages/main"));
 const AddText = lazy(() => import("./pages/addText"));
+const AddPicture = lazy(() => import("./pages/addPicture"));
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Switch>
                     <Route path="/" component={Main} exact></Route>
                     <Route path="/AddText" component={AddText} exact></Route>
+                    <Route path="/AddPicture" component={AddPicture} exact></Route>
                     <Route render={({ location }) => <div>이 페이지는 존재하지 않습니다:{location.pathname}</div>}></Route>
                 </Switch>
             </Suspense>
