@@ -1,32 +1,27 @@
 import { createAction, handleActions } from "redux-actions";
 import { createRequestAction } from "./createRequestAction";
+import mp from "../assets/main.png";
 
 export const [SETTEXT, SETTEXT_SUCCESS, SETTEXT_FAIL] = createRequestAction("SETTEXT");
 export const [SETIMG, SETIMG_SUCCESS, SETIMG_FAIL] = createRequestAction("SETIMG");
 
-export const setText = createAction(SETTEXT, (text) => ({ text }));
-export const setImg = createAction(SETIMG, (img) => ({ img }));
+export const setText = createAction(SETTEXT, (text) => text);
+export const setImg = createAction(SETIMG, (img) => img);
 
 const initialState = {
-    img: null,
-    text: "",
+    img: mp,
+    text: "text",
 };
 
 const memory = handleActions(
     {
-        [SETTEXT_SUCCESS]: (state, { payload: text }) => ({
+        [SETTEXT]: (state, { payload: text }) => ({
             ...state,
             text: text,
         }),
-        [SETTEXT_FAIL]: (state, { payload: error }) => ({
-            ...state,
-        }),
-        [SETIMG_SUCCESS]: (state, { payload: img }) => ({
+        [SETIMG]: (state, { payload: img }) => ({
             ...state,
             img: img,
-        }),
-        [SETIMG_FAIL]: (state, { payload: error }) => ({
-            ...state,
         }),
     },
     initialState

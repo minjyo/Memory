@@ -59,6 +59,7 @@ const MemoryBox = styled.div`
     height: 200px;
     margin: 0 auto;
     margin-top: 50%;
+    border-radius: 700px;
 `;
 const Memory = styled.img`
     width: 100%;
@@ -95,6 +96,8 @@ const AddPicture = ({ history }) => {
     const [picture, setPicture] = useState(null);
     const [imgBase64, setImgBase64] = useState("");
     const [emoji, setEmoji] = useState(null);
+
+    const dispatch = useDispatch();
 
     return (
         <Wrapper>
@@ -135,7 +138,7 @@ const AddPicture = ({ history }) => {
                     <NextButton
                         onClick={() => {
                             movePage("Result");
-                            setImg(imgBase64 === "" ? emoji : imgBase64);
+                            dispatch(setImg(imgBase64 === "" ? emoji : imgBase64));
                         }}
                     >
                         사진 저장하러 가기 ->

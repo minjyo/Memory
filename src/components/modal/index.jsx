@@ -25,7 +25,6 @@ const Wrapper = styled.div`
     word-break: keep-all;
 `;
 const Modal = ({ content }) => {
-    console.log("A");
     return (
         <>
             <ModalOverlay></ModalOverlay>

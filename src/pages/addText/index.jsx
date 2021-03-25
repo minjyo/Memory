@@ -60,6 +60,8 @@ const AddText = ({ history }) => {
     const [isTyping, setIsTyping] = useState(false);
     const [memory, setMemory] = useState("");
 
+    const dispatch = useDispatch();
+
     return (
         <Wrapper>
             <TitleBox>
@@ -75,7 +77,7 @@ const AddText = ({ history }) => {
             <NextButton
                 onClick={() => {
                     movePage("AddPicture");
-                    setText(memory);
+                    dispatch(setText(memory));
                 }}
             >
                 사진 등록하러 가기 ->
