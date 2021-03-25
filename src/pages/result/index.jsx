@@ -27,8 +27,8 @@ const MemoryText = styled.div`
     font-weight: bold;
 `;
 const MemoryPictureBox = styled.div`
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     border-radius: 300px;
     overflow: hidden;
     margin: 3rem auto;
@@ -55,7 +55,7 @@ const Result = ({ history }) => {
     };
 
     const ref = useRef();
-    console.log(ref);
+
     const [screen, takeScreenshot] = useScreenshot({
         type: "image/png",
         quality: 1.0,
@@ -81,7 +81,12 @@ const Result = ({ history }) => {
                     <TitleText>내 인생에서</TitleText>
                     <TitleText>가장 찬란했던</TitleText>
                     <TitleText>순간은</TitleText>
-                    <MemoryText>{text}</MemoryText>
+                    {text
+                        .replace(/(?:\r\n|\r|\n)/g, "<br/>")
+                        .split("<br/>")
+                        .map((t) => {
+                            return <MemoryText>{t}</MemoryText>;
+                        })}
                 </TitleBox>
                 <MemoryPictureBox>
                     <MemoryPicture src={img}></MemoryPicture>

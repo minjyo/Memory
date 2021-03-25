@@ -33,10 +33,23 @@ const InputBox = styled.div`
     margin: 0 auto;
     padding: 3rem 0;
 `;
-const Input = styled.input`
-    border: none;
+const Input = styled.textarea`
+    /* border: none;
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid black; */
+    box-sizing: border-box;
+    min-height: 100px;
+    width: 100%;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    resize: none;
+
+    background-attachment: local;
+    background-image: linear-gradient(to right, white 10px, transparent 10px), linear-gradient(to left, white 10px, transparent 10px),
+        repeating-linear-gradient(white, white 30px, #212121 31px, #212121 31px, white 32px);
+    line-height: 31px;
+    padding: 8px 10px;
 `;
 const NextButton = styled.div`
     font-size: 15px;
@@ -72,7 +85,7 @@ const AddText = ({ history }) => {
             <TitleText>내 인생에서 가장 찬란했던 순간은</TitleText>
             <StateBox>{isTyping ? <StatePicture src={bird}></StatePicture> : <StatePicture src={egg}></StatePicture>}</StateBox>
             <InputBox>
-                <Input type="text" value={memory} placeholder={"추억을 입력해주세요"} onChange={onTextChange}></Input>
+                <Input wrap="hard" cols="3" type="text" value={memory} placeholder={"추억을 입력해주세요"} onChange={onTextChange}></Input>
             </InputBox>
             <NextButton
                 onClick={() => {
