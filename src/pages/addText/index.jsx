@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import egg from "../../assets/egg.png";
 import bird from "../../assets/bird.png";
+import { setText } from "../../store/memory";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -71,7 +72,14 @@ const AddText = ({ history }) => {
             <InputBox>
                 <Input type="text" value={memory} placeholder={"추억을 입력해주세요"} onChange={onTextChange}></Input>
             </InputBox>
-            <NextButton onClick={() => movePage("AddPicture")}>사진 등록하러 가기 -></NextButton>
+            <NextButton
+                onClick={() => {
+                    movePage("AddPicture");
+                    setText(memory);
+                }}
+            >
+                사진 등록하러 가기 ->
+            </NextButton>
         </Wrapper>
     );
 };

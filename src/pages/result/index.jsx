@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import mp from "../../assets/main.png";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -36,6 +35,9 @@ const NextButton = styled.div`
 `;
 
 const Result = ({ history }) => {
+    const text = useSelector((state) => state.memory.text);
+    const img = useSelector((state) => state.memory.img);
+
     const movePage = (page) => {
         history.push(`/${page}`);
     };
@@ -46,9 +48,10 @@ const Result = ({ history }) => {
                 <TitleText>내 인생에서</TitleText>
                 <TitleText>가장 찬란했던</TitleText>
                 <TitleText>순간은</TitleText>
+                <TitleText>{text}</TitleText>
             </TitleBox>
             <MainPictureBox>
-                <MainPicture src={mp}></MainPicture>
+                <MainPicture src={img}></MainPicture>
             </MainPictureBox>
         </Wrapper>
     );

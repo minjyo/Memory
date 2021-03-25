@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/modal";
 import egg from "../../assets/egg.png";
+import { setImg } from "../../store/memory";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -131,7 +132,14 @@ const AddPicture = ({ history }) => {
             ) : option === "select" ? (
                 <>
                     <MemoryBox>{imgBase64 === "" ? <Memory src={emoji}></Memory> : <Memory src={imgBase64}></Memory>}</MemoryBox>
-                    <NextButton onClick={() => movePage("Result")}>사진 저장하러 가기 -></NextButton>
+                    <NextButton
+                        onClick={() => {
+                            movePage("Result");
+                            setImg(imgBase64 === "" ? emoji : imgBase64);
+                        }}
+                    >
+                        사진 저장하러 가기 ->
+                    </NextButton>
                 </>
             ) : (
                 <>

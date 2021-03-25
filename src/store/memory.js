@@ -18,14 +18,14 @@ const memory = handleActions(
             ...state,
             text: text,
         }),
-        [SETTEXT_SUCCESS_FAIL]: (state, { payload: error }) => ({
+        [SETTEXT_FAIL]: (state, { payload: error }) => ({
             ...state,
         }),
         [SETIMG_SUCCESS]: (state, { payload: img }) => ({
             ...state,
             img: img,
         }),
-        [SETIMG_SUCCESS_FAIL]: (state, { payload: error }) => ({
+        [SETIMG_FAIL]: (state, { payload: error }) => ({
             ...state,
         }),
     },
