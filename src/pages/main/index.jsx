@@ -11,6 +11,7 @@ const TitleBox = styled.div`
     display: flex;
     flex-direction: column;
     padding-left: 1rem;
+    padding-top: 3rem;
 `;
 const TitleText = styled.div`
     font-size: 20px;
@@ -31,6 +32,7 @@ const MainPicture = styled.img`
 const NextButton = styled.div`
     font-size: 15px;
     float: right;
+    padding-right: 1rem;
 `;
 
 const Main = ({ history }) => {
