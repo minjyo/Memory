@@ -95,9 +95,9 @@ const Result = ({ history }) => {
 
             <DownloadBtn
                 onClick={() => {
+                    console.log(ref.current);
                     ref.current && ref.current.focus();
                     getImage();
-                    download();
                 }}
             >
                 이미지 다운로드

@@ -189,7 +189,7 @@ const AddPicture = ({ history }) => {
                     <NextButton
                         onClick={() => {
                             movePage("Result");
-                            dispatch(setImg(croppedImage === "" ? emoji : croppedImage));
+                            dispatch(setImg(croppedImage === null ? emoji : croppedImage));
                         }}
                     >
                         사진 저장하러 가기 ->
