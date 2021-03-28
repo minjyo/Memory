@@ -185,7 +185,7 @@ const AddPicture = ({ history }) => {
                 ></Modal>
             ) : option === "select" ? (
                 <>
-                    <MemoryBox>{croppedImage === "" ? <Memory src={emoji}></Memory> : <Memory src={croppedImage}></Memory>}</MemoryBox>
+                    <MemoryBox>{croppedImage === null ? <Memory src={emoji}></Memory> : <Memory src={croppedImage}></Memory>}</MemoryBox>
                     <NextButton
                         onClick={() => {
                             movePage("Result");
