@@ -124,6 +124,7 @@ const AddPicture = ({ history }) => {
             console.log("donee", { croppedImage });
             setCroppedImage(croppedImage);
         } catch (e) {
+            alert(e);
             console.error(e);
         }
     }, [imgBase64, croppedAreaPixels]);
@@ -152,7 +153,7 @@ const AddPicture = ({ history }) => {
                             </CropperContainer>
                             <PictureInput
                                 type="file"
-                                accept="image/jpg,impge/png,image/jpeg,image/gif"
+                                accept="image/jpg,image/png,image/jpeg,image/gif"
                                 name="picture"
                                 onChange={choosePicture}
                             ></PictureInput>

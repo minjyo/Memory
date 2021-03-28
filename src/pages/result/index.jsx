@@ -60,10 +60,10 @@ const Result = ({ history }) => {
         type: "image/png",
         quality: 1.0,
     });
-    const download = (screen, { name = "memory", extension = "png" } = {}) => {
+    const download = () => {
         const a = document.createElement("a");
         a.href = screen;
-        a.download = createFileName(extension, name);
+        a.download = createFileName("memory", "png");
         a.click();
     };
     const getImage = () => takeScreenshot(ref.current).then(download);
@@ -95,7 +95,6 @@ const Result = ({ history }) => {
 
             <DownloadBtn
                 onClick={() => {
-                    console.log(ref.current);
                     ref.current && ref.current.focus();
                     getImage();
                 }}
