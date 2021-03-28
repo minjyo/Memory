@@ -65,8 +65,8 @@ const MemoryBox = styled.div`
     overflow: hidden;
 `;
 const Memory = styled.img`
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
 `;
 const CropperContainer = styled.div`
@@ -107,7 +107,7 @@ const AddPicture = ({ history }) => {
     const [option, setOption] = useState("");
     const [picture, setPicture] = useState(null);
     const [imgBase64, setImgBase64] = useState("");
-    const [emoji, setEmoji] = useState(null);
+    const [emoji, setEmoji] = useState(egg);
 
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -161,6 +161,7 @@ const AddPicture = ({ history }) => {
                                 onClick={() => {
                                     showCroppedImage();
                                     setOption("select");
+                                    console.log(imgBase64);
                                 }}
                             >
                                 완료
@@ -186,7 +187,7 @@ const AddPicture = ({ history }) => {
                 ></Modal>
             ) : option === "select" ? (
                 <>
-                    <MemoryBox>{croppedImage === null ? <Memory src={emoji}></Memory> : <Memory src={croppedImage}></Memory>}</MemoryBox>
+                    <MemoryBox>{croppedImage === null ? <Memory src={emoji}></Memory> : <Memory src={`${croppedImage}`}></Memory>}</MemoryBox>
                     <NextButton
                         onClick={() => {
                             movePage("Result");
