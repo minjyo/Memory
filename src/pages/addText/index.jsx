@@ -64,6 +64,12 @@ const AddText = ({ history }) => {
 
     const onTextChange = (e) => {
         setMemory(e.target.value);
+        let lines = e.target.value.split("\n");
+        if (lines.length > 3 || e.target.value.length > 100) {
+            setIsMax(true);
+        } else {
+            setMaxMemory(e.target.value);
+        }
         if (e.target.value === "") {
             setIsTyping(false);
         } else {
@@ -72,6 +78,8 @@ const AddText = ({ history }) => {
     };
     const [isTyping, setIsTyping] = useState(false);
     const [memory, setMemory] = useState("");
+    const [maxMemory, setMaxMemory] = useState("");
+    const [isMax, setIsMax] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -85,7 +93,14 @@ const AddText = ({ history }) => {
             <TitleText>내 인생에서 가장 찬란했던 순간은</TitleText>
             <StateBox>{isTyping ? <StatePicture src={bird}></StatePicture> : <StatePicture src={egg}></StatePicture>}</StateBox>
             <InputBox>
-                <Input wrap="hard" cols="3" type="text" value={memory} placeholder={"추억을 입력해주세요"} onChange={onTextChange}></Input>
+                <Input
+                    wrap="hard"
+                    rows="3"
+                    type="text"
+                    value={isMax ? maxMemory : memory}
+                    placeholder={"추억을 입력해주세요"}
+                    onChange={onTextChange}
+                ></Input>
             </InputBox>
             <NextButton
                 onClick={() => {
