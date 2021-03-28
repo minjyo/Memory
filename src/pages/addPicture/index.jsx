@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/modal";
 import egg from "../../assets/egg.png";
 import { setImg } from "../../store/memory";
+import Cropper from "react-easy-crop";
+import { getCroppedImg, getRotatedImage } from "../../utils/canvasUtils";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -55,16 +57,26 @@ const EmojiComplete = styled.button`
     height: 50px;
 `;
 const MemoryBox = styled.div`
-    width: 300px;
+    width: 200px;
     height: 200px;
     margin: 0 auto;
     margin-top: 50%;
     border-radius: 700px;
+    overflow: hidden;
 `;
 const Memory = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
+`;
+const CropperContainer = styled.div`
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: #333;
+    /* [theme.breakpoints.up("sm")]: {
+        height: 400;
+    } */
 `;
 
 const NextButton = styled.div`
@@ -97,6 +109,25 @@ const AddPicture = ({ history }) => {
     const [imgBase64, setImgBase64] = useState("");
     const [emoji, setEmoji] = useState(null);
 
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+    const [croppedImage, setCroppedImage] = useState(null);
+
+    const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
+
+    const showCroppedImage = useCallback(async () => {
+        try {
+            const croppedImage = await getCroppedImg(imgBase64, croppedAreaPixels);
+            console.log("donee", { croppedImage });
+            setCroppedImage(croppedImage);
+        } catch (e) {
+            console.error(e);
+        }
+    }, [imgBase64, croppedAreaPixels]);
+
     const dispatch = useDispatch();
 
     return (
@@ -105,14 +136,34 @@ const AddPicture = ({ history }) => {
                 <Modal
                     content={
                         <PictureModal>
-                            <PictureImg src={imgBase64} alt="" />
+                            {/* <PictureImg src={imgBase64} alt="" /> */}
+                            <CropperContainer>
+                                <Cropper
+                                    image={imgBase64}
+                                    crop={crop}
+                                    zoom={zoom}
+                                    cropShape="round"
+                                    aspect={1}
+                                    showGrid={false}
+                                    onCropChange={setCrop}
+                                    onCropComplete={onCropComplete}
+                                    onZoomChange={setZoom}
+                                />
+                            </CropperContainer>
                             <PictureInput
                                 type="file"
                                 accept="image/jpg,impge/png,image/jpeg,image/gif"
                                 name="picture"
                                 onChange={choosePicture}
                             ></PictureInput>
-                            <PictureComplete onClick={() => setOption("select")}>완료</PictureComplete>
+                            <PictureComplete
+                                onClick={() => {
+                                    showCroppedImage();
+                                    setOption("select");
+                                }}
+                            >
+                                완료
+                            </PictureComplete>
                         </PictureModal>
                     }
                 ></Modal>
@@ -134,11 +185,11 @@ const AddPicture = ({ history }) => {
                 ></Modal>
             ) : option === "select" ? (
                 <>
-                    <MemoryBox>{imgBase64 === "" ? <Memory src={emoji}></Memory> : <Memory src={imgBase64}></Memory>}</MemoryBox>
+                    <MemoryBox>{croppedImage === "" ? <Memory src={emoji}></Memory> : <Memory src={croppedImage}></Memory>}</MemoryBox>
                     <NextButton
                         onClick={() => {
                             movePage("Result");
-                            dispatch(setImg(imgBase64 === "" ? emoji : imgBase64));
+                            dispatch(setImg(croppedImage === "" ? emoji : croppedImage));
                         }}
                     >
                         사진 저장하러 가기 ->
